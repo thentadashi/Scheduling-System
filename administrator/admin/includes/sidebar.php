@@ -3,6 +3,9 @@
                     <!-- begin sidebar-nav -->
                     <div class="sidebar-nav bg-gradient scrollbar scroll_light">
                         <ul class="metismenu " id="sidebarNav">
+                            <?php 
+                                if((isset($_SESSION['adminLogin']) && $_SESSION['adminLogin'] == true)){
+                            ?>
                             <li class="nav-static-title">Menu</li>
                             <li><a href="index.php" aria-expanded="false"><i class="fa fa-dashboard"></i><span class="nav-title">Dashboard</span></a> </li>
                             <li><a href="teachers.php" aria-expanded="false"><i class="fa fa-user"></i><span class="nav-title">Instructor</span></a> </li>
@@ -21,7 +24,16 @@
                             <li class="nav-static-title">Reports</li>
                             <li><a href="statistics-report.php" aria-expanded="false"><i class="fa fa-line-chart"></i><span class="nav-title">Visitor Statistics</span></a> </li>
                             <li><a href="tour-report.php" aria-expanded="false"><i class="fa fa-bar-chart"></i><span class="nav-title">Statistics by Tour</span></a> </li>
-                            <li><a href="country-report.php" aria-expanded="false"><i class="fa fa-pie-chart"></i><span class="nav-title">Statistics by Country</span></a> </li>
+                            <li><a href="country-report.php" aria-expanded="false"><i class="fa fa-pie-chart"></i><span class="nav-title">Statistics by Course</span></a> </li>
+                            <?php  
+                                }else{
+                            ?>
+                                <li><a href="ins_dash.php" aria-expanded="false"><i class="fa fa-dashboard"></i><span class="nav-title">Schedule Dashboard</span></a> </li>
+                                <li><a href="ins_class.php" aria-expanded="false"><i class="fa fa-tasks"></i><span class="nav-title">Class/Subject</span></a> </li>
+                                <li><a href="ins_profile.php" aria-expanded="false"><i class="fa fa-user"></i><span class="nav-title">Profile</span></a> </li>
+                            <?php 
+                            }
+                            ?>
                         </ul>
                     </div>
                     <!-- end sidebar-nav -->

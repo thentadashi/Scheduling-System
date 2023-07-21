@@ -8,7 +8,7 @@
                 </button>
             </div>
         	<div class="modal-body">
-                <form  method="post" enctype="multipart/form-data"> 
+            <form id="scheduleForm" method="POST" action="../process_schedule.php">
                 <hr>
 					<div class="control-group">
                         <label class="control-label" for="inputEmail">
@@ -179,179 +179,180 @@
 
                               
                 <div class = "modal-footer">
-                    <input type="submit" name = "go" class="btn btn-primary">
+                    <input type="hidden" name = "go" class="btn btn-primary">
+                    <input type="submit" name = "" class="btn btn-primary">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
     </div>
 									
-</form>  
+
 									  
 						<?php 
 									   
-                            if (isset($_POST['go'])) 
-                            {
-								$Monday=isset($_POST['Monday']) ? $_POST['Monday'] : '';
-                                $Tuesday=isset($_POST['Tuesday']) ? $_POST['Tuesday'] : '';
-                                $Wednesday=isset($_POST['Wednesday']) ? $_POST['Wednesday'] : '';
-                                $Thursday=isset($_POST['Thursday']) ? $_POST['Thursday'] : '';
-                                $Friday=isset($_POST['Friday']) ? $_POST['Friday'] : '';
-                                $Saturday=isset($_POST['Saturday']) ? $_POST['Saturday'] : '';
+                            // if (isset($_POST['go'])) 
+                            // {
+							//     $Monday=isset($_POST['Monday']) ? $_POST['Monday'] : '';
+                            //     $Tuesday=isset($_POST['Tuesday']) ? $_POST['Tuesday'] : '';
+                            //     $Wednesday=isset($_POST['Wednesday']) ? $_POST['Wednesday'] : '';
+                            //     $Thursday=isset($_POST['Thursday']) ? $_POST['Thursday'] : '';
+                            //     $Friday=isset($_POST['Friday']) ? $_POST['Friday'] : '';
+                            //     $Saturday=isset($_POST['Saturday']) ? $_POST['Saturday'] : '';
 
-                                $day=$Monday." ".$Tuesday." ".$Wednesday." ".$Thursday." ".$Friday." ".$Saturday;
-                                $time_start= $_POST['time_start'] ;					
-                                $time_end=$_POST['time_end'] ;
-                                $fname=$_POST['fname'] ;
-                                $subject_code=$_POST['subject_code'] ;
-                                $room_name=$_POST['room_name'] ;
-                                $course_year_section=$_POST['course_year_section'] ;
-                                $semester=$_POST['semester'] ;
-                                $sy=$_POST['sy'] ;
-                                $department=$_POST['department'] ;
+                            //     $day=$Monday." ".$Tuesday." ".$Wednesday." ".$Thursday." ".$Friday." ".$Saturday;
+                            //     $time_start= $_POST['time_start'] ;					
+                            //     $time_end=$_POST['time_end'] ;
+                            //     $fname=$_POST['fname'] ;
+                            //     $subject_code=$_POST['subject_code'] ;
+                            //     $room_name=$_POST['room_name'] ;
+                            //     $course_year_section=$_POST['course_year_section'] ;
+                            //     $semester=$_POST['semester'] ;
+                            //     $sy=$_POST['sy'] ;
+                            //     $department=$_POST['department'] ;
 
-                                $query1= mysqli_query($con,"SELECT * FROM classsched WHERE day='$day' and time_start='$time_start' and time_end='$time_end' and fname='$fname'") or die("Cannot Connect to Database".mysqli_connect_error());
-                                $query2 = mysqli_query($con,"SELECT * FROM classsched WHERE day='$day' and time_start='$time_start' and time_end='$time_end' and room_name='$room_name'") or die("Cannot Connect to Database".mysqli_connect_error());
-                                $query3 = mysqli_query($con,"SELECT * FROM classsched WHERE day='$day' and time_start='$time_start' and time_end='$time_end' and course_year_section='$course_year_section'") or die("Cannot Connect to Database".mysqli_connect_error());
-                                $query4 = mysqli_query($con,"SELECT * FROM classsched WHERE day='$day' and time_start='$time_start' and time_end='$time_end' ") or die("Cannot Connect to Database".mysqli_connect_error());
+                            //     $query1= mysqli_query($con,"SELECT * FROM classsched WHERE day='$day' and time_start='$time_start' and time_end='$time_end' and fname='$fname'") or die("Cannot Connect to Database".mysqli_connect_error());
+                            //     $query2 = mysqli_query($con,"SELECT * FROM classsched WHERE day='$day' and time_start='$time_start' and time_end='$time_end' and room_name='$room_name'") or die("Cannot Connect to Database".mysqli_connect_error());
+                            //     $query3 = mysqli_query($con,"SELECT * FROM classsched WHERE day='$day' and time_start='$time_start' and time_end='$time_end' and course_year_section='$course_year_section'") or die("Cannot Connect to Database".mysqli_connect_error());
+                            //     $query4 = mysqli_query($con,"SELECT * FROM classsched WHERE day='$day' and time_start='$time_start' and time_end='$time_end' ") or die("Cannot Connect to Database".mysqli_connect_error());
                                
-                                $query5 = mysqli_query($con,"SELECT * FROM classsched WHERE m='1' AND time_start='$time_start' and time_end='$time_end' and course_year_section ='$course_year_section' and semester='$semester' and sy='$sy'") or die("Cannot Connect to Database".mysqli_connect_error());
-                                $query6 = mysqli_query($con,"SELECT * FROM classsched WHERE t='1' AND time_start='$time_start' and time_end='$time_end' and course_year_section ='$course_year_section' and semester='$semester' and sy='$sy'") or die("Cannot Connect to Database".mysqli_connect_error());
-                                $query7 = mysqli_query($con,"SELECT * FROM classsched WHERE w='1' AND time_start='$time_start' and time_end='$time_end' and course_year_section ='$course_year_section' and semester='$semester' and sy='$sy'") or die("Cannot Connect to Database".mysqli_connect_error());
-                                $query8 = mysqli_query($con,"SELECT * FROM classsched WHERE th='1' AND time_start='$time_start' and time_end='$time_end' and course_year_section ='$course_year_section' and semester='$semester' and sy='$sy'") or die("Cannot Connect to Database".mysqli_connect_error());
-                                $query9 = mysqli_query($con,"SELECT * FROM classsched WHERE f='1' AND time_start='$time_start' and time_end='$time_end' and course_year_section ='$course_year_section' and semester='$semester' and sy='$sy'") or die("Cannot Connect to Database".mysqli_connect_error());
+                            //     $query5 = mysqli_query($con,"SELECT * FROM classsched WHERE m='1' AND time_start='$time_start' and time_end='$time_end' and course_year_section ='$course_year_section' and semester='$semester' and sy='$sy'") or die("Cannot Connect to Database".mysqli_connect_error());
+                            //     $query6 = mysqli_query($con,"SELECT * FROM classsched WHERE t='1' AND time_start='$time_start' and time_end='$time_end' and course_year_section ='$course_year_section' and semester='$semester' and sy='$sy'") or die("Cannot Connect to Database".mysqli_connect_error());
+                            //     $query7 = mysqli_query($con,"SELECT * FROM classsched WHERE w='1' AND time_start='$time_start' and time_end='$time_end' and course_year_section ='$course_year_section' and semester='$semester' and sy='$sy'") or die("Cannot Connect to Database".mysqli_connect_error());
+                            //     $query8 = mysqli_query($con,"SELECT * FROM classsched WHERE th='1' AND time_start='$time_start' and time_end='$time_end' and course_year_section ='$course_year_section' and semester='$semester' and sy='$sy'") or die("Cannot Connect to Database".mysqli_connect_error());
+                            //     $query9 = mysqli_query($con,"SELECT * FROM classsched WHERE f='1' AND time_start='$time_start' and time_end='$time_end' and course_year_section ='$course_year_section' and semester='$semester' and sy='$sy'") or die("Cannot Connect to Database".mysqli_connect_error());
 
-                                $query10 = mysqli_query($con,"SELECT * FROM classsched WHERE m='1' AND time_start='$time_start' and time_end='$time_end' and room_name='$room_name' and semester='$semester' and sy='$sy'") or die("Cannot Connect to Database".mysqli_connect_error());
-                                $query11 = mysqli_query($con,"SELECT * FROM classsched WHERE t='1' AND time_start='$time_start' and time_end='$time_end' and room_name='$room_name' and semester='$semester' and sy='$sy'") or die("Cannot Connect to Database".mysqli_connect_error());
-                                $query12 = mysqli_query($con,"SELECT * FROM classsched WHERE w='1' AND time_start='$time_start' and time_end='$time_end' and room_name='$room_name' and semester='$semester' and sy='$sy'") or die("Cannot Connect to Database".mysqli_connect_error());
-                                $query13 = mysqli_query($con,"SELECT * FROM classsched WHERE th='1' AND time_start='$time_start' and time_end='$time_end' and room_name='$room_name' and semester='$semester' and sy='$sy'") or die("Cannot Connect to Database".mysqli_connect_error());
-                                $query14 = mysqli_query($con,"SELECT * FROM classsched WHERE f='1' AND time_start='$time_start' and time_end='$time_end' and room_name='$room_name' and semester='$semester' and sy='$sy'") or die("Cannot Connect to Database".mysqli_connect_error());
+                            //     $query10 = mysqli_query($con,"SELECT * FROM classsched WHERE m='1' AND time_start='$time_start' and time_end='$time_end' and room_name='$room_name' and semester='$semester' and sy='$sy'") or die("Cannot Connect to Database".mysqli_connect_error());
+                            //     $query11 = mysqli_query($con,"SELECT * FROM classsched WHERE t='1' AND time_start='$time_start' and time_end='$time_end' and room_name='$room_name' and semester='$semester' and sy='$sy'") or die("Cannot Connect to Database".mysqli_connect_error());
+                            //     $query12 = mysqli_query($con,"SELECT * FROM classsched WHERE w='1' AND time_start='$time_start' and time_end='$time_end' and room_name='$room_name' and semester='$semester' and sy='$sy'") or die("Cannot Connect to Database".mysqli_connect_error());
+                            //     $query13 = mysqli_query($con,"SELECT * FROM classsched WHERE th='1' AND time_start='$time_start' and time_end='$time_end' and room_name='$room_name' and semester='$semester' and sy='$sy'") or die("Cannot Connect to Database".mysqli_connect_error());
+                            //     $query14 = mysqli_query($con,"SELECT * FROM classsched WHERE f='1' AND time_start='$time_start' and time_end='$time_end' and room_name='$room_name' and semester='$semester' and sy='$sy'") or die("Cannot Connect to Database".mysqli_connect_error());
 
-                                $query15 = mysqli_query($con,"SELECT * FROM classsched WHERE m='1' AND time_start='$time_start' and time_end='$time_end' and fname='$fname' and semester='$semester' and sy='$sy'") or die("Cannot Connect to Database".mysqli_connect_error());
-                                $query16 = mysqli_query($con,"SELECT * FROM classsched WHERE t='1' AND time_start='$time_start' and time_end='$time_end' and fname='$fname' and semester='$semester' and sy='$sy'") or die("Cannot Connect to Database".mysqli_connect_error());
-                                $query17 = mysqli_query($con,"SELECT * FROM classsched WHERE w='1' AND time_start='$time_start' and time_end='$time_end' and fname='$fname' and semester='$semester' and sy='$sy'") or die("Cannot Connect to Database".mysqli_connect_error());
-                                $query18 = mysqli_query($con,"SELECT * FROM classsched WHERE th='1' AND time_start='$time_start' and time_end='$time_end' and fname='$fname' and semester='$semester' and sy='$sy'") or die("Cannot Connect to Database".mysqli_connect_error());
-                                $query19 = mysqli_query($con,"SELECT * FROM classsched WHERE f='1' AND time_start='$time_start' and time_end='$time_end' and fname='$fname' and semester='$semester' and sy='$sy'") or die("Cannot Connect to Database".mysqli_connect_error());
+                            //     $query15 = mysqli_query($con,"SELECT * FROM classsched WHERE m='1' AND time_start='$time_start' and time_end='$time_end' and fname='$fname' and semester='$semester' and sy='$sy'") or die("Cannot Connect to Database".mysqli_connect_error());
+                            //     $query16 = mysqli_query($con,"SELECT * FROM classsched WHERE t='1' AND time_start='$time_start' and time_end='$time_end' and fname='$fname' and semester='$semester' and sy='$sy'") or die("Cannot Connect to Database".mysqli_connect_error());
+                            //     $query17 = mysqli_query($con,"SELECT * FROM classsched WHERE w='1' AND time_start='$time_start' and time_end='$time_end' and fname='$fname' and semester='$semester' and sy='$sy'") or die("Cannot Connect to Database".mysqli_connect_error());
+                            //     $query18 = mysqli_query($con,"SELECT * FROM classsched WHERE th='1' AND time_start='$time_start' and time_end='$time_end' and fname='$fname' and semester='$semester' and sy='$sy'") or die("Cannot Connect to Database".mysqli_connect_error());
+                            //     $query19 = mysqli_query($con,"SELECT * FROM classsched WHERE f='1' AND time_start='$time_start' and time_end='$time_end' and fname='$fname' and semester='$semester' and sy='$sy'") or die("Cannot Connect to Database".mysqli_connect_error());
                                 
-                                $count1=mysqli_num_rows($query1);
-                                $count2=mysqli_num_rows($query2);
-                                $count3=mysqli_num_rows($query3);
-                                $count4=mysqli_num_rows($query4);
+                            //     $count1=mysqli_num_rows($query1);
+                            //     $count2=mysqli_num_rows($query2);
+                            //     $count3=mysqli_num_rows($query3);
+                            //     $count4=mysqli_num_rows($query4);
 
-                                $count5=mysqli_num_rows($query5);
-                                $count6=mysqli_num_rows($query6);
-                                $count7=mysqli_num_rows($query7);
-                                $count8=mysqli_num_rows($query8);
-                                $count9=mysqli_num_rows($query9);
+                            //     $count5=mysqli_num_rows($query5);
+                            //     $count6=mysqli_num_rows($query6);
+                            //     $count7=mysqli_num_rows($query7);
+                            //     $count8=mysqli_num_rows($query8);
+                            //     $count9=mysqli_num_rows($query9);
 
-                                $count10=mysqli_num_rows($query10);
-                                $count11=mysqli_num_rows($query11);
-                                $count12=mysqli_num_rows($query12);
-                                $count13=mysqli_num_rows($query13);
-                                $count14=mysqli_num_rows($query14);
+                            //     $count10=mysqli_num_rows($query10);
+                            //     $count11=mysqli_num_rows($query11);
+                            //     $count12=mysqli_num_rows($query12);
+                            //     $count13=mysqli_num_rows($query13);
+                            //     $count14=mysqli_num_rows($query14);
 
-                                $count15=mysqli_num_rows($query15);
-                                $count16=mysqli_num_rows($query16);
-                                $count17=mysqli_num_rows($query17);
-                                $count18=mysqli_num_rows($query18);
-                                $count19=mysqli_num_rows($query19);
+                            //     $count15=mysqli_num_rows($query15);
+                            //     $count16=mysqli_num_rows($query16);
+                            //     $count17=mysqli_num_rows($query17);
+                            //     $count18=mysqli_num_rows($query18);
+                            //     $count19=mysqli_num_rows($query19);
                                 
 
-                                if($count1 > 0){
-                                echo "<script>alert ('Instructor $fname Schedule is busy at this time;  ' );</script>";
-                                }
-                                    elseif($count2> 0){
-                                    echo "<script>alert('Room $room_name Schedule is busy at this time ;');</script>";
-                                    }
-                                        elseif($count3 > 0){
-                                        echo "<script>alert('$course_year_section Schedule is busy at this time');</script>";
-                                        }
-                                            elseif($count5 > 0){
-                                            echo "<script>alert('Conflict on day schedule please review the schedules');</script>";
-                                            }
-                                            elseif($count6 > 0){
-                                                echo "<script>alert('Conflict on day schedule please review the schedules');</script>";
-                                                }
-                                                elseif($count7 > 0){
-                                                    echo "<script>alert('Conflict on day schedule please review the schedules');</script>";
-                                                    }
-                                                    elseif($count8 > 0){
-                                                        echo "<script>alert('Conflict on day schedule please review the schedules');</script>";
-                                                        }
-                                                        elseif($count9 > 0){
-                                                            echo "<script>alert('Conflict on day schedule please review the schedules');</script>";
-                                                            }
-                                                            elseif($count10 > 0){
-                                                                echo "<script>alert('Conflict on $room_name schedule please review the schedules');</script>";
-                                                                }
-                                                                elseif($count11 > 0){
-                                                                    echo "<script>alert('Conflict on $room_name schedule please review the schedules');</script>";
-                                                                    }
-                                                                    elseif($count12 > 0){
-                                                                        echo "<script>alert('Conflict on $room_name schedule please review the schedules');</script>";
-                                                                        }
-                                                                        elseif($count13 > 0){
-                                                                            echo "<script>alert('Conflict on $room_name schedule please review the schedules');</script>";
-                                                                            }
-                                                                            elseif($count14 > 0){
-                                                                                echo "<script>alert('Conflict on $room_name schedule please review the schedules');</script>";
-                                                                                }
-                                                                                elseif($count15 > 0){
-                                                                                    echo "<script>alert('Conflict on Mr./Mrs $fname schedule please review the schedules');</script>";
-                                                                                    }
-                                                                                    elseif($count16 > 0){
-                                                                                        echo "<script>alert('Conflict Mr./Mrs $fname schedule please review the schedules');</script>";
-                                                                                        }
-                                                                                        elseif($count17 > 0){
-                                                                                            echo "<script>alert('Conflict Mr./Mrs $fname schedule please review the schedules');</script>";
-                                                                                            }
-                                                                                            elseif($count18 > 0){
-                                                                                                echo "<script>alert('Conflict Mr./Mrs $fname schedule please review the schedules');</script>";
-                                                                                                }
-                                                                                                elseif($count19 > 0){
-                                                                                                    echo "<script>alert('Conflict Mr./Mrs $fname schedule please review the schedules');</script>";
-                                                                                                    }
+                            //     if($count1 > 0){
+                            //     echo "<script>alert ('Instructor $fname Schedule is busy at this time;  ' );</script>";
+                            //     }
+                            //         elseif($count2> 0){
+                            //         echo "<script>alert('Room $room_name Schedule is busy at this time ;');</script>";
+                            //         }
+                            //             elseif($count3 > 0){
+                            //             echo "<script>alert('$course_year_section Schedule is busy at this time');</script>";
+                            //             }
+                            //                 elseif($count5 > 0){
+                            //                 echo "<script>alert('Conflict on day schedule please review the schedules');</script>";
+                            //                 }
+                            //                 elseif($count6 > 0){
+                            //                     echo "<script>alert('Conflict on day schedule please review the schedules');</script>";
+                            //                     }
+                            //                     elseif($count7 > 0){
+                            //                         echo "<script>alert('Conflict on day schedule please review the schedules');</script>";
+                            //                         }
+                            //                         elseif($count8 > 0){
+                            //                             echo "<script>alert('Conflict on day schedule please review the schedules');</script>";
+                            //                             }
+                            //                             elseif($count9 > 0){
+                            //                                 echo "<script>alert('Conflict on day schedule please review the schedules');</script>";
+                            //                                 }
+                            //                                 elseif($count10 > 0){
+                            //                                     echo "<script>alert('Conflict on $room_name schedule please review the schedules');</script>";
+                            //                                     }
+                            //                                     elseif($count11 > 0){
+                            //                                         echo "<script>alert('Conflict on $room_name schedule please review the schedules');</script>";
+                            //                                         }
+                            //                                         elseif($count12 > 0){
+                            //                                             echo "<script>alert('Conflict on $room_name schedule please review the schedules');</script>";
+                            //                                             }
+                            //                                             elseif($count13 > 0){
+                            //                                                 echo "<script>alert('Conflict on $room_name schedule please review the schedules');</script>";
+                            //                                                 }
+                            //                                                 elseif($count14 > 0){
+                            //                                                     echo "<script>alert('Conflict on $room_name schedule please review the schedules');</script>";
+                            //                                                     }
+                            //                                                     elseif($count15 > 0){
+                            //                                                         echo "<script>alert('Conflict on Mr./Mrs $fname schedule please review the schedules');</script>";
+                            //                                                         }
+                            //                                                         elseif($count16 > 0){
+                            //                                                             echo "<script>alert('Conflict Mr./Mrs $fname schedule please review the schedules');</script>";
+                            //                                                             }
+                            //                                                             elseif($count17 > 0){
+                            //                                                                 echo "<script>alert('Conflict Mr./Mrs $fname schedule please review the schedules');</script>";
+                            //                                                                 }
+                            //                                                                 elseif($count18 > 0){
+                            //                                                                     echo "<script>alert('Conflict Mr./Mrs $fname schedule please review the schedules');</script>";
+                            //                                                                     }
+                            //                                                                     elseif($count19 > 0){
+                            //                                                                         echo "<script>alert('Conflict Mr./Mrs $fname schedule please review the schedules');</script>";
+                            //                                                                         }
                             
-                                                                else{
+                            //                                     else{
 
                                         
-                                                                    $currentTime = time() + 3600;
-                                                                    $time_start;
-                                                                    $time_end;
+                            //                                         $currentTime = time() + 3600;
+                            //                                         $time_start;
+                            //                                         $time_end;
 
-                                                                    if (checkTime($time_start, $time_end)) {
-                                                                        echo "<script>alert('Conflict In time! Avoid time End Greater than or Equal to time start!');</script>";
-                                                                        } 
-                                                                        elseif(desiredTime($time_start,$time_end)){
-                                                                            echo "<script>alert('Conflict In time! School Classes Around 8:00am - 5:00pm');</script>";
-                                                                        }
-                                                                        elseif(checkLunch_time($time_start,$time_end)){
-                                                                            echo "<script>alert('Conflict In time! That is lunch time po madam ko');</script>";
-                                                                        }
-                                                                        else 
-                                                                        {
-                                                                            $a = new DateTime($time_start);
-                                                                            $b = new DateTime($time_end);
-                                                                            $interval = $a->diff($b);
+                            //                                         if (checkTime($time_start, $time_end)) {
+                            //                                             echo "<script>alert('Conflict In time! Avoid time End Greater than or Equal to time start!');</script>";
+                            //                                             } 
+                            //                                             elseif(desiredTime($time_start,$time_end)){
+                            //                                                 echo "<script>alert('Conflict In time! School Classes Around 8:00am - 5:00pm');</script>";
+                            //                                             }
+                            //                                             elseif(checkLunch_time($time_start,$time_end)){
+                            //                                                 echo "<script>alert('Conflict In time! That is lunch time po madam ko');</script>";
+                            //                                             }
+                            //                                             else 
+                            //                                             {
+                            //                                                 $a = new DateTime($time_start);
+                            //                                                 $b = new DateTime($time_end);
+                            //                                                 $interval = $a->diff($b);
 
-                                                                                if($interval->format("%H")>01)
-                                                                                {
-                                                                                    echo "<script>alert('Enter Schedule 1hr at a time!');</script>";
-                                                                                    } else {
+                            //                                                     if($interval->format("%H")>01)
+                            //                                                     {
+                            //                                                         echo "<script>alert('Enter Schedule 1hr at a time!');</script>";
+                            //                                                         } else {
 
-                                                                                        mysqli_query($con, "insert into classsched (classid,day,time_start,time_end,fname,subject_code,room_name,course_year_section,semester,sy,department,status)
-                                                                                                    values ('','$day','$time_start','$time_end','$fname','$subject_code','$room_name','$course_year_section','$semester','$sy','$department','checked')
-                                                                                                    ") or die("Cannot Connect to Database" . mysqli_connect_error());
+                            //                                                             mysqli_query($con, "insert into classsched (classid,day,time_start,time_end,fname,subject_code,room_name,course_year_section,semester,sy,department,status)
+                            //                                                                         values ('','$day','$time_start','$time_end','$fname','$subject_code','$room_name','$course_year_section','$semester','$sy','$department','checked')
+                            //                                                                         ") or die("Cannot Connect to Database" . mysqli_connect_error());
 
-                                                                                        $addval1 = mysqli_query($con, "Update classsched set m='1' where day like '%Monday%'");
-                                                                                        $addval2 = mysqli_query($con, "Update classsched set t='1' where day like '%Tuesday%'");
-                                                                                        $addval3 = mysqli_query($con, "Update classsched set w='1' where day like '%Wednesday%'");
-                                                                                        $addval4 = mysqli_query($con, "Update classsched set th='1' where day like '%Thursday%'");
-                                                                                        $addval5 = mysqli_query($con, "Update classsched set f='1' where day like '%Friday%'");
-                                                                                        echo "<script>alert ('Successfully Added!' );</script>";
-                                                                        }
-                                                                    }
-                                                                }
-                            }
+                            //                                                             $addval1 = mysqli_query($con, "Update classsched set m='1' where day like '%Monday%'");
+                            //                                                             $addval2 = mysqli_query($con, "Update classsched set t='1' where day like '%Tuesday%'");
+                            //                                                             $addval3 = mysqli_query($con, "Update classsched set w='1' where day like '%Wednesday%'");
+                            //                                                             $addval4 = mysqli_query($con, "Update classsched set th='1' where day like '%Thursday%'");
+                            //                                                             $addval5 = mysqli_query($con, "Update classsched set f='1' where day like '%Friday%'");
+                            //                                                             echo "<script>alert ('Successfully Added!' );</script>";
+                            //                                             }
+                            //                                         }
+                            //                                     }
+                            // }
                             ?>
 									  
 									  
@@ -398,6 +399,45 @@
     }
   });
 </script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+  $('#scheduleForm').submit(function(e) {
+    e.preventDefault(); // Prevent the form from submitting normally
+    $.ajax({
+      url: 'process_schedule.php',
+      type: 'POST',
+      data: $(this).serialize(), // Send the form data
+      success: function(response) {
+
+        alert(response);
+        if (response.trim() === 'Success: Schedule added successfully') {
+        console.log('Inside if block'); // Check if this message is printed in the console
+        location.reload();
+        setTimeout(function() {
+            console.log('Redirecting to schedule.php'); // Check if this message is printed in the console
+            window.location.href = 'schedule.php';
+        }, 3000); 
+        }
+
+
+
+      },
+      error: function(xhr, status, error) {
+        // Handle the AJAX request error
+        alert('An error occurred during the AJAX request: ' + error);
+        console.log(error);
+      }
+    });
+  });
+});
+</script>
+
+
                                 
                             </div>
 
+<?php
+
+
+?>

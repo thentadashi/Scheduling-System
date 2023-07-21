@@ -19,6 +19,20 @@
                             <input type="text" class = "form-control"  name="lname"   >
                         </div>
                     </div>
+
+                    <div class="control-group">
+                        <label class="control-label" for="inputPassword">Email:</label>
+                        <div class="controls">
+                            <input type="text" class = "form-control"  name="email">
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label" for="inputPassword">Password:</label>
+                        <div class="controls">
+                            <input type="text" class = "form-control"  name="pass" value="12345678" readonly>
+                        </div>
+                    </div>
                     
                     <div class="control-group">
                         <label class="control-label" for="inputPassword">Academic Rank:</label>
@@ -52,11 +66,13 @@
                                 $fname=$_POST['fname'] ; 
                                 $lname= $_POST['lname'] ;					
                                 $arank=$_POST['arank'] ;
+                                $email=$_POST['email'];
                                 $designation=$_POST['designation'] ;
                                 $department=$_POST['department'];
+                                $password = 12345678;
 
-                                mysqli_query($con,"insert into teachers (teachid,fname,lname,arank,designation,department)
-                            	values ('','$fname','$lname','$arank','$designation','$department')
+                                mysqli_query($con,"insert into teachers (teachid,fname,lname,email,password,arank,designation,department)
+                            	values ('','$fname','$lname','$email','$password','$arank','$designation','$department')
                                 ") or die("Cannot Connect to Database".mysqli_connect_error());
                                 echo "<script type='text/javascript'>".
                                 "location.replace('teachers.php?url=teachers.php');".

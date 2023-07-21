@@ -57,8 +57,8 @@ if((isset($_SESSION['adminLogin']) && $_SESSION['adminLogin']==true)){
                                             <div class="row">
                                                 <div class="col-12">
                                                     <div class="form-group">
-                                                        <label class="control-label">Username*</label>
-                                                        <input type="text" name="username" class="form-control" placeholder="Username" />
+                                                        <label class="control-label">Username or Email*</label>
+                                                        <input type="text" name="username" class="form-control" placeholder="Username/Email" />
                                                     </div>
                                                 </div>
                                                 <div class="col-12">
@@ -111,13 +111,25 @@ if(isset($_POST['login']))
   $query = "SELECT * FROM  `users` WHERE `username`=? AND `password`=?";
   $values = [$frm_data['username'],$frm_data['password']];
 
+  $query2 = "SELECT * FROM  `teachers` WHERE `email`=? AND `password`=?";
+  $values2 = [$frm_data['username'],$frm_data['password']];
+
   $res = select($query,$values,"ss");
+  $res2 = select($query2,$values2,"ss");
+
   if($res->num_rows==1){
     $row = mysqli_fetch_assoc($res);
     $_SESSION['adminLogin'] = true;
     $_SESSION['adminId'] = $row['userid'];
     redirect('admin/index.php');
+
+  }elseif($res2->num_rows==1){
+    $row2 = mysqli_fetch_assoc($res2);
+    $_SESSION['instructor'] = true;
+    $_SESSION['insId'] = $row2['teachid'];
+    redirect('admin/ins_dash.php');
   }
+
   else{
     echo "<script>alert('Incorrect username or password!');</script>";
     // redirect('admin/index.php?if=2');

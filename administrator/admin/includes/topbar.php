@@ -42,15 +42,38 @@
                                         <div class="bg-gradient px-4 py-3">
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <div class="mr-1">
+                                                <?php 
+                                                    if((isset($_SESSION['adminLogin']) && $_SESSION['adminLogin'] == true)){
+                                                ?>
                                                     <h4 class="text-white mb-0">Administrator</h4>
                                                     <small class="text-white">admin@gmail.com</small>
+                                                <?php
+                                                    }else{
+                                                        $query = mysqli_query($con, "SELECT * FROM teachers WHERE teachid='" . $_SESSION['insId'] . "'") or die("Cannot Connect to Database".mysqli_connect_error());
+                                                        while ($row = mysqli_fetch_array($query)) {
+                                                            echo "<h4 class='text-white mb-0'>".$row['fname']." ".$row['lname']."</h4>";
+                                                            echo "<small class='text-white'>".$row['email']."</small>";
+                                                        }
+                                                    }
+                                                ?>
                                                 </div>
                                                 <a href="logout.php" class="text-white font-20 tooltip-wrapper" data-toggle="tooltip" data-placement="top" title="" data-original-title="Logout"> <i
                                                                 class="zmdi zmdi-power"></i></a>
                                             </div>
                                         </div>
                                         <div class="p-4">
+                                        <?php 
+                                            if((isset($_SESSION['adminLogin']) && $_SESSION['adminLogin'] == true)){
+                                        ?>
                                             <a class="dropdown-item d-flex nav-link" href="profile.php">
+                                        <?php
+                                            }else{
+                                        ?>
+                                            <a class="dropdown-item d-flex nav-link" href="ins_profile.php">
+                                        <?php
+                                            }
+                                        ?>
+
                                                 <i class="fa fa-user pr-2 text-success"></i> Profile</a>
                                             <a class="dropdown-item d-flex nav-link" href="javascript:void(0)">
                                                 <i class="fa fa-envelope pr-2 text-primary"></i> Inbox
