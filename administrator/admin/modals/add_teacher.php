@@ -27,12 +27,12 @@
                         </div>
                     </div>
 
-                    <div class="control-group">
+                    <!-- <div class="control-group">
                         <label class="control-label" for="inputPassword">Password:</label>
                         <div class="controls">
                             <input type="text" class = "form-control"  name="pass" value="12345678" readonly>
                         </div>
-                    </div>
+                    </div> -->
                     
                     <div class="control-group">
                         <label class="control-label" for="inputPassword">Academic Rank:</label>
@@ -51,7 +51,15 @@
                     <div class="control-group">
                         <label class="control-label" for="inputPassword">Department:</label>
                         <div class="controls">
-                            <input type="text" name="department" class = "form-control">
+                            <select name="department" class = "form-control">
+                                <option value="">Select Department</option>
+                                <option value="BSIT">BSIT</option>
+                                <option value="BSBA">BSBA</option>
+                                <option value="BIT">BIT</option>
+                                <option value="BSE">BSE</option>
+                                <option value="BEE">BEE</option>
+                                <option value="BTLE">BTLE</option>
+                            </select>
                         </div>
                     </div>
                     <div class = "modal-footer">
@@ -69,7 +77,7 @@
                                 $email=$_POST['email'];
                                 $designation=$_POST['designation'] ;
                                 $department=$_POST['department'];
-                                $password = 12345678;
+                                $password = '';
 
                                 mysqli_query($con,"insert into teachers (teachid,fname,lname,email,password,arank,designation,department)
                             	values ('','$fname','$lname','$email','$password','$arank','$designation','$department')

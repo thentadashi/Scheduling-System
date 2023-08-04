@@ -132,13 +132,38 @@
 							<select type="text" name="course_year_section" class = "form-control" required>
                                 <option>Select</option>
                                     <?php 
-                                        $CYS_query=mysqli_query($con,"select * from course")
-                                        or die("Cannot Connect to Database".mysqli_connect_error());
-                                        while($CYS_row=mysqli_fetch_array($CYS_query))
-                                        {
-                                        ?>
-                                            <option><?php echo $CYS_row['course']; ?>-<?php echo $CYS_row['year_section']; ?></option>
-                                        <?php } ?>
+                                        $query = mysqli_query($con,"SELECT * FROM users WHERE userid=".$_SESSION['adminId']) or die("Cannot Connect to Database".mysqli_connect_error());
+                                        $row = mysqli_fetch_array($query);
+                                        if($row['name']=='Administrator'){
+                                            $CYS_query=mysqli_query($con,"select * from course")
+                                            or die("Cannot Connect to Database".mysqli_connect_error());
+                                            while($CYS_row=mysqli_fetch_array($CYS_query))
+                                            {
+                                            ?>
+                                                <option><?php echo $CYS_row['course']; ?>-<?php echo $CYS_row['year_section']; ?></option>
+                                            <?php 
+                                            } 
+                                        }else{
+                                            $adminId=$_SESSION['adminId'];
+                                            $query = mysqli_query($con,"SELECT * FROM users WHERE userid='$adminId'") or die("Cannot Connect to Database".mysqli_connect_error());
+                                            $row = mysqli_fetch_array($query);
+
+                                            $departmentParts = explode("-", $row['department']);
+
+                                            $dept = $departmentParts[0]; 
+                                            $chair = $departmentParts[1];
+                                            $course = $departmentParts[2];
+
+                                            $CYS_query=mysqli_query($con,"select * from course where course='$course'")
+                                            or die("Cannot Connect to Database".mysqli_connect_error());
+                                            while($CYS_row=mysqli_fetch_array($CYS_query))
+                                            {
+                                            ?>
+                                                <option><?php echo $CYS_row['course']; ?>-<?php echo $CYS_row['year_section']; ?></option>
+                                            <?php 
+                                            } 
+                                        }
+                                    ?>
                             </select>
                         </div>
                     </div>

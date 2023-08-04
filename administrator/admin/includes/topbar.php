@@ -44,10 +44,12 @@
                                                 <div class="mr-1">
                                                 <?php 
                                                     if((isset($_SESSION['adminLogin']) && $_SESSION['adminLogin'] == true)){
-                                                ?>
-                                                    <h4 class="text-white mb-0">Administrator</h4>
-                                                    <small class="text-white">admin@gmail.com</small>
-                                                <?php
+                                                        $query = mysqli_query($con, "SELECT * FROM users WHERE userid='" . $_SESSION['adminId'] . "'") or die("Cannot Connect to Database".mysqli_connect_error());
+                                                        while ($row = mysqli_fetch_array($query)) {
+                                                            echo "<h4 class='text-white mb-0'>".$row['name']."</h4>";
+                                                            echo "<small class='text-white'>".$row['department']."</small>";
+                                                        }
+
                                                     }else{
                                                         $query = mysqli_query($con, "SELECT * FROM teachers WHERE teachid='" . $_SESSION['insId'] . "'") or die("Cannot Connect to Database".mysqli_connect_error());
                                                         while ($row = mysqli_fetch_array($query)) {

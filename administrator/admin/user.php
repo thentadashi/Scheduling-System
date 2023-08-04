@@ -39,7 +39,7 @@ adminLogin();
                                     <!-- begin page title -->
                                     <div class="d-block d-sm-flex flex-nowrap align-items-center">
                                         <div class="page-title mb-2 mb-sm-0">
-                                            <h1><i class="fa fa-user"></i> Subject</h1>
+                                            <h1><i class="fa fa-users"></i> Users</h1>
                                         </div>
                                         <div class="ml-auto d-flex align-items-center">
                                             <nav>
@@ -47,7 +47,7 @@ adminLogin();
                                                     <li class="breadcrumb-item">
                                                         <a href="index.php"><i class="ti ti-home"></i></a>
                                                     </li>
-                                                    <li class="breadcrumb-item active text-primary" aria-current="page">Subject</li>
+                                                    <li class="breadcrumb-item active text-primary" aria-current="page">Users</li>
                                                 </ol>
                                             </nav>
                                         </div>
@@ -60,17 +60,17 @@ adminLogin();
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="card card-statistics">
-                                        <div class="card-body">
-                                            <button class="btn btn-primary mb-2" data-toggle="modal" data-target="#addSubject"><i class="fa fa-plus"></i> Add Subject</button>
+                                        <div class="card-body"><button class="btn btn-primary mb-2" data-toggle="modal" data-target="#loginModal"><i class="fa fa-plus"></i> Add User</button>
                                             <div class="datatable-wrapper table-responsive">
                                                 <!-- <input type="text" id="myInput" class="form-control col-md-4 col-lg-4" style="margin-left:66.7%;" onkeyup="myFunction()" placeholder="Search for names.."> -->
                                                 <table id="datatable2" class="display compact table table-striped table-bordered" style="font-size:1rem;color:#666;">
                                                     <thead>
                                                         <tr>
-                                                            <th>Subject Code</th>
-                                                            <th>Subject Title</th>
-                                                            <th>Category</th>
-                                                            <th>Semester</th>
+                                                            <th>Name</th>
+                                                            <th>Email</th>
+                                                            <th>Username</th>
+                                                            <th>Password</th>
+                                                            <th>Account Status</th>
                                                             <th>Action</th>
                                                             
                                                         </tr>
@@ -78,25 +78,28 @@ adminLogin();
                                                     <tbody>
 
                                                         <?php
-                                                            $query = mysqli_query($con,"select * from subject") 
+                                                            $query = mysqli_query($con,"select * from users") 
                                                             or die("Cannot Connect to Database".mysqli_connect_error());
 
                                                             while ($row = mysqli_fetch_array($query)) 
                                                             {
-                                                                $id = $row['subjectid'];
-                                                                $query1 = mysqli_query($con, "SELECT * FROM subject");
+                                                                $id = $row['userid'];
+                                                                $query1 = mysqli_query($con, "SELECT *FROM users");
                                                         ?>
 
                                                         <tr>
-                                                            <td><?php echo $row['subject_code']; ?></td> 
-                                                            <td><?php echo $row['subject_title']; ?></td> 
-                                                            <td><?php echo $row['subject_category']; ?></td> 
-                                                            <td><?php echo $row['semester']; ?></td>
+                                                            <td><?php echo $row['name']; ?></td> 
+                                                            <td><?php echo $row['email']; ?></td> 
+                                                            <td><?php echo $row['username']; ?></td>
+                                                            <td>••••••••••</td> 
+                                                            <td><?php echo $row['department']; ?></td> 
 
-                                                            <td><a href="edit_subject.php<?php echo '?id=' . $id; ?>" class="mr-2"><i class="fa fa-pencil" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i></a>
-                                                                <a href="#delete_subject<?php echo $id; ?>" role="button"  data-target = "#delete_subject<?php echo $id;?>"data-toggle="modal"><i class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i></a></td>
-                                                        </tr>
-                                                            <?php include 'modals/delete_subject.php'?>
+                                                            <td><a href="edit_user.php<?php echo '?id=' . $id; ?>" class="mr-2"><i class="fa fa-pencil" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i></a>
+                                                                    <?php if($row['department']=="MIS-Master-Admin"){}else{?>
+                                                                    <a href="#delete_users<?php echo $id; ?>" role="button"  data-target = "#delete_users<?php echo $id;?>"data-toggle="modal"><i class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i></a></td>
+                                                                    <?php }?>
+                                                                </tr>
+                                                            <?php include 'modals/delete_users.php'?>
                                                         <?php
                                                             }
                                                         ?>
@@ -125,7 +128,7 @@ adminLogin();
             <!-- end app-wrap -->
         </div>
         <!-- end app -->
-        <?php include 'modals/add_subject.php'?>
+        <?php include 'modals/add_users.php'?>
         <?php include 'includes/footer.php'?>
     </body>
 </html>

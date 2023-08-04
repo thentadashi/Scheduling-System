@@ -84,10 +84,6 @@ adminLogin();
                                                         <th>Semester</th>
                                                         <th>School Year</th>
                                                         <th>Action</th>
-                                                        
-                                                        
-                                                        
-                                                            
                                                         </tr>
                                                     </thead>
                                                     <tbody>

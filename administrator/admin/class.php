@@ -17,7 +17,7 @@ adminLogin();
                 <div class="loader">
                     <div class="h-100 d-flex justify-content-center">
                         <div class="align-self-center">
-<img src="../assets/img/Pangasinan_State_University_logo.png" style="height:250px;" alt="logo" />
+                            <img src="../assets/img/Pangasinan_State_University_logo.png" style="height:250px;" alt="logo" />
                         </div>
                     </div>
                 </div>
@@ -78,6 +78,10 @@ adminLogin();
                                                     </thead>
                                                     <tbody>
                                                         <?php 
+                                                        $query = mysqli_query($con,"SELECT * FROM users WHERE userid=".$_SESSION['adminId']) or die("Cannot Connect to Database".mysqli_connect_error());
+                                                        $row = mysqli_fetch_array($query);
+                                                        if($row['name']=='Administrator'){
+
                                                         $query = mysqli_query($con,"select * from course") or die("Cannot Connect to Database".mysqli_connect_error());
                                                         while ($row = mysqli_fetch_array($query)) {
                                                             $id = $row['courseid'];
@@ -101,6 +105,42 @@ adminLogin();
                                                             <?php include 'modals/delete_class.php'?>
                                                         <?php
                                                             }
+                                                        }else{
+                                                            $adminId=$_SESSION['adminId'];
+                                                            $query = mysqli_query($con,"SELECT * FROM users WHERE userid='$adminId'") or die("Cannot Connect to Database".mysqli_connect_error());
+                                                            $row = mysqli_fetch_array($query);
+
+                                                            $departmentParts = explode("-", $row['department']);
+
+                                                            $dept = $departmentParts[0]; 
+                                                            $chair = $departmentParts[1];
+                                                            $course = $departmentParts[2];
+
+                                                            $query = mysqli_query($con,"select * from course  WHERE course='$course'") 
+                                                            or die("Cannot Connect to Database".mysqli_connect_error());
+                                                            while ($row = mysqli_fetch_array($query)) {
+                                                                $id = $row['courseid'];
+                                                                
+                                                                                        
+                                                                $query1 = mysqli_query($con,"SELECT *FROM course");
+                                                                
+    
+                                                            ?>
+                                                            <tr class="warning">
+                                                                <td><?php echo $row['course']; ?></td> 
+                                                                <td><?php echo $row['year_section']; ?></td> 
+                                                                <td><?php echo $row['major']; ?></td>  
+                                                                <td><?php echo $row['advicer']; ?></td>  
+                                                                
+                                                                
+    
+                                                                <td><a href="edit_class.php<?php echo '?id=' . $id; ?>" class="mr-2"><i class="fa fa-pencil" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i></a>
+                                                                    <a href="#delete_class<?php echo $id; ?>" role="button"  data-target = "#delete_class<?php echo $id;?>"data-toggle="modal"><i class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i></a></td>
+                                                            </tr>
+                                                                <?php include 'modals/delete_class.php'?>
+                                                            <?php
+                                                                }
+                                                        }
                                                         ?>
                                                     </tbody>
                                                     <tfoot>

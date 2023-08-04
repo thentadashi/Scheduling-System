@@ -17,7 +17,7 @@ adminLogin();
                 <div class="loader">
                     <div class="h-100 d-flex justify-content-center">
                         <div class="align-self-center">
-<img src="../assets/img/Pangasinan_State_University_logo.png" style="height:250px;" alt="logo" />
+                            <img src="../assets/img/Pangasinan_State_University_logo.png" style="height:250px;" alt="logo" />
                         </div>
                     </div>
                 </div>
@@ -60,7 +60,15 @@ adminLogin();
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="card card-statistics">
-                                        <div class="card-body"><button class="btn btn-primary mb-2" data-toggle="modal" data-target="#loginModal"><i class="fa fa-plus"></i> Add Teacher</button>
+                                        <div class="card-body">
+                                            <?php
+                                                        $query = mysqli_query($con,"SELECT * FROM users WHERE userid=".$_SESSION['adminId']) or die("Cannot Connect to Database".mysqli_connect_error());
+                                                        $row = mysqli_fetch_array($query);
+                                                        if($row['name']=='Administrator'){
+                                            ?>          
+                                                        <button class="btn btn-primary mb-2" data-toggle="modal" data-target="#loginModal"><i class="fa fa-plus"></i> Add Teacher</button>
+                                            <?php } ?>
+                                                            
                                             <div class="datatable-wrapper table-responsive">
                                                 <!-- <input type="text" id="myInput" class="form-control col-md-4 col-lg-4" style="margin-left:66.7%;" onkeyup="myFunction()" placeholder="Search for names.."> -->
                                                 <table id="datatable2" class="display compact table table-striped table-bordered" style="font-size:1rem;color:#666;">
@@ -76,9 +84,46 @@ adminLogin();
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-
                                                         <?php
+                                                        $query = mysqli_query($con,"SELECT * FROM users WHERE userid=".$_SESSION['adminId']) or die("Cannot Connect to Database".mysqli_connect_error());
+                                                        $row = mysqli_fetch_array($query);
+                                                        if($row['name']=='Administrator'){
                                                             $query = mysqli_query($con,"select * from teachers") 
+                                                            or die("Cannot Connect to Database".mysqli_connect_error());
+
+                                                            while ($row = mysqli_fetch_array($query)) 
+                                                            {
+                                                                $id = $row['teachid'];
+                                                                $query1 = mysqli_query($con, "SELECT *FROM teachers");
+                                                        ?>
+
+                                                        <tr>
+                                                            <td><?php echo $row['fname'];?></td> 
+                                                            <td><?php echo $row['lname'];?></td> 
+                                                            <td><?php echo $row['arank'];?></td> 
+                                                            <td><?php echo $row['designation'];?></td>
+                                                            <td><?php echo $row['department'];?></td>
+                                                            <td>
+                                                                <a href="edit_teacher.php<?php echo '?id=' . $id; ?>" class="mr-2"><i class="fa fa-pencil" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i></a>
+                                                                <a href="#delete_teacher<?php echo $id; ?>" role="button"  data-target = "#delete_teacher<?php echo $id;?>"data-toggle="modal"><i class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i></a>
+                                                            </td>
+                                                        </tr>
+                                                            <?php include 'modals/delete_teacher.php'?>
+                                                        <?php
+                                                            }
+                                                        }else{
+                                                            
+                                                            $adminId=$_SESSION['adminId'];
+                                                            $query = mysqli_query($con,"SELECT * FROM users WHERE userid='$adminId'") or die("Cannot Connect to Database".mysqli_connect_error());
+                                                            $row = mysqli_fetch_array($query);
+
+                                                            $departmentParts = explode("-", $row['department']);
+
+                                                            $dept = $departmentParts[0]; 
+                                                            $chair = $departmentParts[1];
+                                                            $course = $departmentParts[2];
+
+                                                            $query = mysqli_query($con,"select * from teachers  WHERE department='$course'") 
                                                             or die("Cannot Connect to Database".mysqli_connect_error());
 
                                                             while ($row = mysqli_fetch_array($query)) 
@@ -94,12 +139,15 @@ adminLogin();
                                                             <td><?php echo $row['designation']; ?></td>
                                                             <td><?php echo $row['department']; ?></td> 
 
-                                                            <td><a href="edit_teacher.php<?php echo '?id=' . $id; ?>" class="mr-2"><i class="fa fa-pencil" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i></a>
-                                                                <a href="#delete_teacher<?php echo $id; ?>" role="button"  data-target = "#delete_teacher<?php echo $id;?>"data-toggle="modal"><i class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i></a></td>
+                                                            <td>
+                                                                <a href="edit_teacher.php<?php echo '?id=' . $id; ?>" class="mr-2"><i class="fa fa-pencil" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"></i></a>
+                                                                <a href="#delete_teacher<?php echo $id; ?>" role="button"  data-target = "#delete_teacher<?php echo $id;?>"data-toggle="modal"><i class="fa fa-trash" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"></i></a>
+                                                            </td>
                                                         </tr>
                                                             <?php include 'modals/delete_teacher.php'?>
                                                         <?php
                                                             }
+                                                        }
                                                         ?>
                                                     </tbody>
                                                     <tfoot>
