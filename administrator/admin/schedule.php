@@ -64,7 +64,15 @@ adminLogin();
                                     <?php include 'modals/preview_class_schedule.php'?>
                                     <?php include 'modals/preview_teacher_schedule.php'?>
                                     <?php include 'modals/preview_room.php'?>
-                                        <div class="card-body"><button class="btn btn-primary mb-2 mr-2 col-2" data-toggle="modal" data-target="#schedModal"><i class="fa fa-plus"></i> Add Class</button>
+                                        <div class="card-body">
+                                        <?php
+                                                        $query = mysqli_query($con,"SELECT * FROM users WHERE userid=".$_SESSION['adminId']) or die("Cannot Connect to Database".mysqli_connect_error());
+                                                        $row = mysqli_fetch_array($query);
+                                                        if($row['name']!='Administrator'){
+                                        ?>          
+                                           
+                                                                <button class="btn btn-primary mb-2 mr-2 col-2" data-toggle="modal" data-target="#schedModal"><i class="fa fa-plus"></i> Add Class</button>
+                                        <?php } ?>
                                                                 <button class="btn btn-danger mb-2 mr-2" data-toggle="modal" data-target="#preview_class_schedule"><i class="fa fa-calendar"></i> Preview Class Schedule</button>
                                                                 <button class="btn btn-danger mb-2 mr-2" data-toggle="modal" data-target="#preview_teacher_schedule"><i class="fa fa-calendar"></i> Preview Teacher Schedule</button>
                                                                 <button class="btn btn-danger mb-2 mr-2" data-toggle="modal" data-target="#preview_room_schedule"><i class="fa fa-calendar"></i> Preview Room Schedule</button>
