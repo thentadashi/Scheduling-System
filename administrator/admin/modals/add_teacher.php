@@ -51,14 +51,38 @@
                     <div class="control-group">
                         <label class="control-label" for="inputPassword">Department:</label>
                         <div class="controls">
-                            <select name="department" class = "form-control">
-                                <option value="">Select Department</option>
-                                <option value="BSIT">BSIT</option>
-                                <option value="BSBA">BSBA</option>
-                                <option value="BIT">BIT</option>
-                                <option value="BSE">BSE</option>
-                                <option value="BEE">BEE</option>
-                                <option value="BTLE">BTLE</option>
+                        <select type="text" name="department" class ="form-control" required>
+                                <option>Select</option>
+                                    <?php 
+                                        $query = mysqli_query($con,"SELECT * FROM users WHERE userid=".$_SESSION['adminId']) or die("Cannot Connect to Database".mysqli_connect_error());
+                                        $row = mysqli_fetch_array($query);
+                                        if($row['name']=='Administrator'){
+
+                                            ?>
+                                                <option value="BSIT">BSIT</option>
+                                                <option value="BSBA">BSBA</option>
+                                                <option value="BIT">BIT</option>
+                                                <option value="BSE">BSE</option>
+                                                <option value="BEE">BEE</option>
+                                                <option value="BTLE">BTLE</option>
+                                            <?php 
+
+                                        }else{
+                                            $adminId=$_SESSION['adminId'];
+                                            $query = mysqli_query($con,"SELECT * FROM users WHERE userid='$adminId'") or die("Cannot Connect to Database".mysqli_connect_error());
+                                            $row = mysqli_fetch_array($query);
+
+                                            $departmentParts = explode("-", $row['department']);
+
+                                            $dept = $departmentParts[0]; 
+                                            $chair = $departmentParts[1];
+                                            $course = $departmentParts[2];
+                                            ?>
+                                                <option value="<?php echo $course; ?>"><?php echo $course; ?></option>
+                                            <?php 
+
+                                        }
+                                    ?>
                             </select>
                         </div>
                     </div>

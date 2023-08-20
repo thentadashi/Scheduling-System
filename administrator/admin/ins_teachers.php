@@ -61,9 +61,13 @@ adminLogin();
                                 <div class="col-lg-12">
                                     <div class="card card-statistics">
                                         <div class="card-body">
-        
+                                            <?php
+                                                        $query = mysqli_query($con,"SELECT * FROM users WHERE userid=".$_SESSION['adminId']) or die("Cannot Connect to Database".mysqli_connect_error());
+                                                        $row = mysqli_fetch_array($query);
+                                                        if($row['name']=='Administrator'){
+                                            ?>          
                                                         <button class="btn btn-primary mb-2" data-toggle="modal" data-target="#loginModal"><i class="fa fa-plus"></i> Add Teacher</button>
-
+                                            <?php } ?>
                                                             
                                             <div class="datatable-wrapper table-responsive">
                                                 <!-- <input type="text" id="myInput" class="form-control col-md-4 col-lg-4" style="margin-left:66.7%;" onkeyup="myFunction()" placeholder="Search for names.."> -->

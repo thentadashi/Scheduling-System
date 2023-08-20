@@ -44,9 +44,14 @@
                             <?php  
                                 }else{
                             ?>
+                                <li class="nav-static-title">
+                                    <h4 class="mb-1"  style="margin-top:-10px;color:#f2f2f2;"><?php echo $row['name']?></h4>
+                                <p style="color:gold"><?php echo $row['department']?></p>
+                                </li>
                                 <li><a href="ins_dash.php" aria-expanded="false"><i class="fa fa-dashboard"></i><span class="nav-title">Schedule Dashboard</span></a> </li>
                                 <li><a href="ins_class.php" aria-expanded="false"><i class="fa fa-tasks"></i><span class="nav-title">Class/Subject</span></a> </li>
                                 <li><a href="ins_profile.php" aria-expanded="false"><i class="fa fa-user"></i><span class="nav-title">Profile</span></a> </li>
+                                <li><a href="ins_teachers.php" aria-expanded="false"><i class="fa fa-user"></i><span class="nav-title">Instructor</span></a> </li>
                             <?php 
                             }
                             ?>
